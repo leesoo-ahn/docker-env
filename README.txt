@@ -1,0 +1,5 @@
+## how-to build
+docker build -f <dockerfile> --build-arg WHOAMI=$(whoami) --build-arg UID=$(id -u) -t <img name> .
+
+## how-to run
+docker run -it --privileged -v $HOME:$HOME -e HOME=$HOME -P -w $HOME -u $(whoami) --name <container name> <img name>:latest
