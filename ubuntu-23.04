@@ -13,7 +13,8 @@ RUN set -x \
             git sudo vim build-essential curl git-lfs p7zip-full repo \
             python-is-python3 pkg-config libncurses-dev linux-tools-common \
             fakeroot libncurses-dev gawk flex bison openssl libssl-dev dkms \
-            libelf-dev libudev-dev libpci-dev libiberty-dev autoconf llvm
+            libelf-dev libudev-dev libpci-dev libiberty-dev autoconf llvm \
+            dh-make cpio bc zstd rsync libcap-dev default-jdk
 
 RUN useradd -s /bin/bash $WHOAMI -u $UID && \
     echo "$WHOAMI ALL=(root) NOPASSWD:ALL" >> /etc/sudoers && \
