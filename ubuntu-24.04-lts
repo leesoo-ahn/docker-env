@@ -1,0 +1,25 @@
+FROM ubuntu:24.04
+ARG WHOAMI
+ARG UID
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TERM xterm-256color
+ENV TZ Asia/Seoul
+
+RUN userdel -r ubuntu
+
+RUN set -x \
+        && apt update -y \
+        && apt upgrade -y \
+        && apt install -y \
+            git sudo vim build-essential curl git-lfs p7zip-full repo \
+            python-is-python3 pkg-config libncurses-dev linux-tools-common \
+            fakeroot libncurses-dev gawk flex bison openssl libssl-dev dkms \
+            libelf-dev libudev-dev libpci-dev libiberty-dev autoconf llvm \
+            dh-make cpio bc zstd rsync libcap-dev default-jdk
+
+RUN useradd -s /bin/bash $WHOAMI -u $UID && \
+    echo "$WHOAMI ALL=(root) NOPASSWD:ALL" >> /etc/sudoers && \
+    chmod 0440 /etc/sudoers
+
+ENTRYPOINT ["bash"]
