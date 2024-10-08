@@ -1,0 +1,19 @@
+FROM fedora:40
+ARG WHOAMI
+ARG UID
+
+ENV TERM xterm-256color
+ENV TZ Asia/Seoul
+
+RUN useradd -s /bin/bash $WHOAMI -u $UID && \
+    echo "$WHOAMI ALL=(root) NOPASSWD:ALL" >> /etc/sudoers && \
+    chmod 0440 /etc/sudoers
+
+RUN set -x \
+        && dnf update -y \
+        && dnf upgrade -y \
+        && dnf groupinstall "Development Tools" \
+        && dnf install -y vim git make gcc flex bison bzip2 rpm-build \
+                python3-pyyaml
+
+ENTRYPOINT ["bash"]
